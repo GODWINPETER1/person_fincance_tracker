@@ -10,14 +10,14 @@ const pool = mysql.createPool({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     waitForConnections: true,
-    connectionLimit: 10,
+    connectionLimit: 100,
     queueLimit: 0
 });
 
-
+// Test for the database connection
 pool.getConnection()
     .then((connection) => {
-        console.log("MySQL Database Connected Successfully!")
+        console.log("Database Connected Successfully!")
         connection.release();
     }).catch((error) => {
         console.error("MYSQL Connection Failed: " , error)
