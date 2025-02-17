@@ -1,14 +1,14 @@
 // RegisterPage.tsx
 import React from "react";
 import LoginForm from "@/features/auth/Login";
-import imageSrc from "@/assets/auth2.jpg"; // Update with actual image path
+import ImageCarousel from "@/components/carousel/imageCarousel";
 
 const LoginPage: React.FC = () => {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen items-center justify-center">
       {/* Left Side - Image */}
-      <div className="hidden md:flex w-1/2  items-center justify-center">
-        <img src={imageSrc} alt="Register" className="max-w-s md:max-w-md" />
+      <div className="hidden md:flex w-1/2  justify-center">
+        <ImageCarousel/>
       </div>
       
       {/* Right Side - Form */}

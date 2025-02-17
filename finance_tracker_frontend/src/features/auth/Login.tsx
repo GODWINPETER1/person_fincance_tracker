@@ -6,6 +6,7 @@ import { Button } from "@/components/button/button";
 import { Input } from "@/components/input/input";
 import { AiOutlineLoading } from "react-icons/ai";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/dialog/dialog";
+import { NavLink } from "react-router-dom";
 
 
 export default function Login() {
@@ -42,6 +43,7 @@ export default function Login() {
         <Input label="Email" name="email"  type="email" value={formData.email} onChange={handleChange} required />
         <Input label="Password" name="password"  type="password" value={formData.password} onChange={handleChange} required />
         <Button loading={loading} type="submit" className="w-full">{loading && <AiOutlineLoading className="animate-spin text-lg"/>} Login </Button>
+        <p className="mt-3 text-lg font-semibold"> Do not have an Account ? <NavLink to="/register"> <a className="text-emerald-300"> Sign up now </a> </NavLink> </p>
       </form>
 
       {/* success Dialog */}

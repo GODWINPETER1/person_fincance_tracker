@@ -42,7 +42,7 @@ export default function Register() {
         <Input label="Email" name="email"  value={formData.email} onChange={handleChange} required />
         <Input label="Password" name="password"  value={formData.password} onChange={handleChange} required />
         <Button loading={loading} type="submit" className="w-full">{loading && <AiOutlineLoading className="animate-spin text-lg"/>} Sign Up </Button>
-        <p className="mt-3 text-lg font-semibold"> Already have an account ? <NavLink to="/login"> <a href="/login" className="text-emerald-300"> Login </a> </NavLink> </p>
+        <p className="mt-3 text-lg font-semibold"> Already have an account ? <NavLink to="/login"> <a className="text-emerald-300"> Login </a> </NavLink> </p>
       </form>
 
       {/* success Dialog */}
