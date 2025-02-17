@@ -8,7 +8,7 @@ export const registerUser = async (userData: { name: string; email: string; pass
     try {
       
       const response = await axios.post(`${API_URL}/register`, userData);
-
+      
       return response.data;
     } catch (error) {
 
@@ -23,7 +23,7 @@ export const registerUser = async (userData: { name: string; email: string; pass
   };
 
 // Login function to handle an api call
-export const logiUser = async (loginUserData: {email: string , password: string}) => {
+export const loginUser = async (loginUserData: {email: string , password: string}) => {
 
   try {
     const response = await axios.post(`${API_URL}/login` , loginUserData);
