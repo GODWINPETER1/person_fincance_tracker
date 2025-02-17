@@ -1,7 +1,7 @@
 // RegisterPage.tsx
 import React from "react";
 import LoginForm from "@/features/auth/Login";
-import imageSrc from "@/assets/auth3.jpg"; // Update with actual image path
+import imageSrc from "@/assets/auth2.jpg"; // Update with actual image path
 
 const LoginPage: React.FC = () => {
   return (

@@ -18,7 +18,7 @@ interface LoginUserData {
 }
 
 interface AuthState {
-    user: {message : string}  | null | number;
+    user: {message : string , name: string}  | null | number;
     loading: boolean;
     error: string | null
 }
@@ -53,9 +53,11 @@ export const login = createAsyncThunk("auth/login" , async(loginUserData: LoginU
     } catch (error: unknown) {
 
         if (error instanceof AxiosError) {
-
-            return rejectWithValue(error.response?.data.message || "Login failed")
+            console.error("Login Error" , error.response?.data?.message)
+            return rejectWithValue(error.response?.data?.message || "Login failed")
         }
+
+        return rejectWithValue("An unexpected error occurred.")
     }
 })
 
@@ -97,7 +99,8 @@ const authSlice = createSlice({
 
         .addCase(login.fulfilled , (state , action) => {
             state.loading = false;
-            state.user = action.payload;
+            state.user = action.payload.user;
+            state.error = null 
         })
 
         .addCase(login.rejected , (state , action) => {
