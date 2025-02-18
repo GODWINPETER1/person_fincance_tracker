@@ -34,7 +34,14 @@ export const getTransactionByUser = async (userId: number) => {
 
     const query = `SELECT * FROM transactions WHERE userId = ? ORDER BY date DESC`;
     const [rows] = await pool.execute(query , [userId]);
-    return rows
+    
+    // convert amount from string to number
+    const transactions = (rows as any[]).map((row) => ({
+        ...row,
+        amount: parseFloat(row.amount)
+    }))
+
+    return transactions
 }
 
 // update a transaction
