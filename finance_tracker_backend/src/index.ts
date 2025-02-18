@@ -4,8 +4,8 @@ import testRoutes from './routes/test'; // Import the test route
 import dotenv from 'dotenv';
 import cors from "cors"
 import authRoutes from "./routes/authRoutes/authRoutes";
-import pool from "./config/db";
-import { error } from 'console';
+import transactionsRoutes from "./routes/transactions/transactionsRoute";
+
 
 dotenv.config()
 
@@ -17,8 +17,7 @@ app.use(express.json());
 
 //  Routes
 app.use("/api/auth" , authRoutes)
-
-// Test database connection
+app.use("/api/transactions" , transactionsRoutes)
 
 
 
