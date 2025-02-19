@@ -3,13 +3,13 @@ import axios from "axios";
 const TRANSACTION_API_BASE_URL = "http://localhost:5000/api";
 
 export interface Transaction {
-    id?: number;
+    id: number;
     userId: number;
     type: "income" | "expense";
     amount: number;
     category: string;
     description: string;
-    date? : string
+    date : string
 }
 
 // Get all transactions for the logged-in user

@@ -1,11 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTransactions } from "@/features/transactions/transactionSlice";
+import { fetchTransactions, removeTransaction , editTransaction} from "@/features/transactions/transactionSlice";
 import { AppDispatch, RootState } from "@/store/store";
+import EditTransactionModal from "@/components/transactionsModal/editTransactionModal"; // Modal for Editing
+import { Transaction } from "@/api/transaction/transactionApi";
 
 const TransactionList = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { transactions, loading, error } = useSelector((state: RootState) => state.transactions);
+
+    const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
+    const [isEditModalOpen, setEditModalOpen] = useState(false);
 
     useEffect(() => {
         dispatch(fetchTransactions());
@@ -14,6 +19,16 @@ const TransactionList = () => {
     if (loading) return <p className="text-center text-indigo-500 text-lg font-semibold">Loading transactions...</p>;
     if (error) return <p className="text-center text-red-500 text-lg font-semibold">Error: {error}</p>;
 
+    const handleDelete = (id: number) => {
+        dispatch(removeTransaction(id));
+    };
+
+    const handleEdit = (transaction: Transaction) => {
+        setSelectedTransaction(transaction);
+        setEditModalOpen(true);
+    };
+
+    // Separate income & expense transactions
     const incomeTransactions = transactions.filter((t) => t.type === "income");
     const expenseTransactions = transactions.filter((t) => t.type === "expense");
 
@@ -30,21 +45,36 @@ const TransactionList = () => {
                                 <th className="py-3 px-4">Category</th>
                                 <th className="py-3 px-4">Description</th>
                                 <th className="py-3 px-4">Date</th>
+                                <th className="py-3 px-4">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {incomeTransactions.length > 0 ? (
                                 incomeTransactions.map((transaction) => (
                                     <tr key={transaction.id} className="border-b hover:bg-gray-100">
-                                        <td className="py-3 px-4 text-green-600 font-medium">${Number(transaction.amount).toFixed(2)}</td>
+                                        <td className="py-3 px-4 font-medium text-green-600">${Number(transaction.amount).toFixed(2)}</td>
                                         <td className="py-3 px-4">{transaction.category}</td>
                                         <td className="py-3 px-4">{transaction.description}</td>
-                                        <td className="py-3 px-4">{new Date().toLocaleDateString()}</td>
+                                        <td className="py-3 px-4">{new Date(transaction.date).toLocaleDateString()}</td>
+                                        <td className="py-3 px-4 flex gap-2">
+                                            <button
+                                                onClick={() => handleEdit(transaction)}
+                                                className="text-blue-500 hover:underline"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(transaction.id)}
+                                                className="text-red-500 hover:underline"
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={4} className="text-center py-4 text-gray-500">No income transactions found.</td>
+                                    <td colSpan={5} className="text-center py-4 text-gray-500">No income transactions found.</td>
                                 </tr>
                             )}
                         </tbody>
@@ -63,27 +93,50 @@ const TransactionList = () => {
                                 <th className="py-3 px-4">Category</th>
                                 <th className="py-3 px-4">Description</th>
                                 <th className="py-3 px-4">Date</th>
+                                <th className="py-3 px-4">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {expenseTransactions.length > 0 ? (
                                 expenseTransactions.map((transaction) => (
                                     <tr key={transaction.id} className="border-b hover:bg-gray-100">
-                                        <td className="py-3 px-4 text-red-600 font-medium">${Number(transaction.amount).toFixed(2)}</td>
+                                        <td className="py-3 px-4 font-medium text-red-600">${Number(transaction.amount).toFixed(2)}</td>
                                         <td className="py-3 px-4">{transaction.category}</td>
                                         <td className="py-3 px-4">{transaction.description}</td>
-                                        <td className="py-3 px-4">{new Date().toLocaleDateString()}</td>
+                                        <td className="py-3 px-4">{new Date(transaction.date).toLocaleDateString()}</td>
+                                        <td className="py-3 px-4 flex gap-2">
+                                            <button
+                                                onClick={() => handleEdit(transaction)}
+                                                className="text-blue-500 hover:underline"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(transaction.id)}
+                                                className="text-red-500 hover:underline"
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={4} className="text-center py-4 text-gray-500">No expense transactions found.</td>
+                                    <td colSpan={5} className="text-center py-4 text-gray-500">No expense transactions found.</td>
                                 </tr>
                             )}
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            {/* Edit Modal */}
+            {isEditModalOpen && selectedTransaction && (
+                <EditTransactionModal
+                    transaction={selectedTransaction}
+                    onClose={() => setEditModalOpen(false)}
+                />
+            )}
         </div>
     );
 };
