@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createTransaction } from "@/features/transactions/transactionSlice";
+import { createTransaction, fetchTransactions } from "@/features/transactions/transactionSlice";
 import { AppDispatch } from "@/store/store";
 import { Transaction } from "@/api/transaction/transactionApi";
 import { Button } from "@/components/button/button";
@@ -25,9 +25,10 @@ const TransactionForm = () => {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        dispatch(createTransaction(formData));
+        await dispatch(createTransaction(formData));
+        dispatch(fetchTransactions())
         setFormData({
             userId: 1,
             type: "income",
@@ -39,7 +40,7 @@ const TransactionForm = () => {
     };
 
     return (
-        <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-2xl border border-gray-200">
+        <div className="max-w-lg w-full mx-auto p-6 bg-white shadow-lg rounded-2xl border border-gray-200">
             <h2 className="text-2xl font-semibold text-gray-700 text-center">Add Transaction</h2>
             <form onSubmit={handleSubmit} className="mt-4 space-y-4">
                 {/* Type Selection */}

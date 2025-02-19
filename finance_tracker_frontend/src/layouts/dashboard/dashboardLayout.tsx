@@ -5,14 +5,14 @@ import { Outlet } from "react-router-dom";
 
 const DashboardLayout: React.FC = () => {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-hidden">
         <Navbar />
-        <main className="p-6 flex-1 bg-gray-100">
+        <main className="p-6 flex-grow bg-gray-100 overflow-auto">
           <Outlet /> {/* This will render the active page */}
         </main>
       </div>
