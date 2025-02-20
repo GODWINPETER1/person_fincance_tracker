@@ -5,7 +5,7 @@ import { TfiSettings } from "react-icons/tfi";
 
 // Define menu items in an array for better maintainability
 const menuItems = [
-  { path: "/", label: "Dashboard", icon: <FiHome /> },
+  { path: "/dashboard", label: "Dashboard", icon: <FiHome /> },
   { path: "/transactions", label: "Transactions", icon: <FiBarChart2 /> },
   { path: "/budget", label: "Budget", icon: <FiBarChart2 /> },
   { path: "/reports", label: "Reports", icon: <FiBarChart2 /> },

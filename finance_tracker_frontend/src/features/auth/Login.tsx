@@ -43,7 +43,7 @@ export default function Login() {
   // Function to handle OK click and navigate to Dashboard
   const handleOkClick = () => {
     setIsDialogOpen(false);
-    navigate("/"); // Redirect to dashboard
+    navigate("/dashboard"); // Redirect to dashboard
   };
 
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTransactions, removeTransaction , editTransaction} from "@/features/transactions/transactionSlice";
+import { fetchTransactions, removeTransaction } from "@/features/transactions/transactionSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import EditTransactionModal from "@/components/transactionsModal/editTransactionModal"; // Modal for Editing
 import { Transaction } from "@/api/transaction/transactionApi";
@@ -36,10 +36,10 @@ const TransactionList = () => {
         <div className="max-w-6xl w-full mx-auto p-6">
             {/* Income Transactions Table */}
             <div className="mb-10">
-                <h3 className="text-xl font-semibold text-green-600 mb-4">Income Transactions</h3>
+                <h3 className="text-xl font-semibold text-green-300 mb-4">Income Transactions</h3>
                 <div className="overflow-x-auto">
                     <table className="w-full border border-gray-300">
-                        <thead className="bg-green-500 text-white">
+                        <thead className="bg-green-300 text-white">
                             <tr>
                                 <th className="py-3 px-4">Amount</th>
                                 <th className="py-3 px-4">Category</th>
@@ -84,10 +84,10 @@ const TransactionList = () => {
 
             {/* Expense Transactions Table */}
             <div>
-                <h3 className="text-xl font-semibold text-red-600 mb-4">Expense Transactions</h3>
+                <h3 className="text-xl font-semibold text-red-700 mb-4">Expense Transactions</h3>
                 <div className="overflow-x-auto">
                     <table className="w-full border border-gray-300">
-                        <thead className="bg-red-500 text-white">
+                        <thead className="bg-red-700 text-white">
                             <tr>
                                 <th className="py-3 px-4">Amount</th>
                                 <th className="py-3 px-4">Category</th>

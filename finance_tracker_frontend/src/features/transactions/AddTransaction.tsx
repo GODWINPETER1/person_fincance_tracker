@@ -9,6 +9,7 @@ const TransactionForm = () => {
     const dispatch = useDispatch<AppDispatch>();
 
     const [formData, setFormData] = useState<Transaction>({
+        id: 1,
         userId: 1, // Replace with the logged-in user's ID
         type: "income",
         amount: 0,
@@ -30,6 +31,7 @@ const TransactionForm = () => {
         await dispatch(createTransaction(formData));
         dispatch(fetchTransactions())
         setFormData({
+            id: 1,
             userId: 1,
             type: "income",
             amount: 0,

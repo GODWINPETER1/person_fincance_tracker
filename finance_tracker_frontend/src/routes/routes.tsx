@@ -12,9 +12,9 @@ export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/login" element={<LoginPage/>} />
+      <Route path="/" element={<LoginPage/>} />
       <Route  element={<DashboardLayout/>}>
-          <Route path="/" element={<Dashboard/>}/>
+          <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/transactions" element={<Transaction/>}/>
           <Route path="/budget" element={<Budget/>}/>
           <Route path="/reports" element={<Reports/>}/>
