@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import cors from "cors"
 import authRoutes from "./routes/authRoutes/authRoutes";
 import transactionsRoutes from "./routes/transactions/transactionsRoute";
-
+import budgetRoutes from "./routes/budget/budgets";
 
 dotenv.config()
 
@@ -18,6 +18,7 @@ app.use(express.json());
 //  Routes
 app.use("/api/auth" , authRoutes)
 app.use("/api/transactions" , transactionsRoutes)
+app.use("/api/budgets" , budgetRoutes)
 
 
 

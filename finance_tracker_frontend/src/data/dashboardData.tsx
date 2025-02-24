@@ -2,7 +2,7 @@ import { useSelector} from "react-redux";
 import { RootState } from "@/store/store";
 
 export const GetDashboardData = () => {
-
+    
     const { transactions } = useSelector((state: RootState) => state.transactions);
 
     const totalIncome = transactions.filter((t) => t.type === "income").reduce((sum , t) => sum + Number(t.amount) , 0);

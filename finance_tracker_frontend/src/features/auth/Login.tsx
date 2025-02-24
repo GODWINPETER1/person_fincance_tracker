@@ -20,7 +20,7 @@ export default function Login() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate(); // Initialize useNavigate
 
-  const { loading, error, user } = useSelector((state: RootState) => state.auth);
+  const { loading, error, user  } = useSelector((state: RootState) => state.auth);
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
