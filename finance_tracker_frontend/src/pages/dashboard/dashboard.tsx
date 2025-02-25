@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardFooter, CardTitle } from "@/components/card/card";
 import { GetDashboardData } from "../../data/dashboardData";
-import Budgets from "@/features/budget/budgets";
+import Budgets from "@/features/transactionChart/transactionChart";
 
 export default function Dashboard() {
   const Dashboard_data = GetDashboardData();

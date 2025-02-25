@@ -42,6 +42,7 @@ const transactionSlice = createSlice({
                 state.error = action.error.message ?? "Failed to fetch transactions";
             })
             .addCase(createTransaction.fulfilled, (state, action) => {
+                console.log("Created Transaction:", action.payload)
                 state.transactions.push(action.payload);
             })
             .addCase(editTransaction.fulfilled, (state, action) => {

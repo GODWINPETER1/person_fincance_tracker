@@ -2,13 +2,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "@/features/auth/authSlice";
 import transactionSlice from "@/features/transactions/transactionSlice";
+import budgetSlice from "@/features/budget/budgetSlice"
 
 
 export const store = configureStore({
 
     reducer: {
         auth: authSlice,
-        transactions: transactionSlice
+        transactions: transactionSlice,
+        budgets: budgetSlice
     }
 })
 

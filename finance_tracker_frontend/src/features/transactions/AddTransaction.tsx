@@ -18,6 +18,8 @@ const TransactionForm = () => {
         date: new Date().toISOString().split("T")[0], // Default to today's date
     });
 
+    console.log(formData)
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
