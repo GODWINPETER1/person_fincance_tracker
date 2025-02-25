@@ -1,4 +1,5 @@
 import pool from "../../config/db";
+import { ResultSetHeader , RowDataPacket } from 'mysql2'; // Import the correct type
 
 
 export interface Budget {
@@ -21,22 +22,30 @@ export interface Budget {
 //     }
 // }
 
-// create a new budget
+
+
+// Create a new budget
 export const createBudget = async (budget: Budget) => {
-   
     const query = `INSERT INTO budgets (userId , category , amount , spent , month , year) VALUES ( ? , ? , ? , ? , ? , ?)`;
 
-    const [result] = await pool.execute(query , [
-
+    // Execute the query for inserting the budget
+    const [result] = await pool.execute(query, [
         budget.userId,
         budget.category,
         budget.amount,
         budget.spent || 0,
         budget.month,
-        budget.year
+        budget.year,
     ]);
-    return result;
-}
+
+    return result
+};
+
+
+
+
+
+
 
 // Get all budgets for a user
 export const getBudgetByUser = async (userId: number) => {

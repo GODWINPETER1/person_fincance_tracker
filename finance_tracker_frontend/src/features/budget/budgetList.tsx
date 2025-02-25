@@ -12,15 +12,17 @@ const BudgetList = () => {
     if (!budgets || budgets.length === 0) {
         return <p className="text-center text-gray-500">No budgets available.</p>;
       }
+      console.log(budgets)
     return (
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
 
             {
         
-                    budgets.map((budget) => (
-                       <ErrorBoundary>
+                    budgets.map((budget) =>   (
+                        
+                       <ErrorBoundary key={budget.id}>
+                        
                           <BudgetCard
-                           key={budget.userId}
                            category={budget.category}
                            amount={budget.amount}
                            month={budget.month}

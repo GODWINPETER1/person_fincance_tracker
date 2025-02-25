@@ -4,25 +4,26 @@ import { createBudget , getBudgetByUser , updateBudget , deleteBudget } from "..
 import { validationResult } from "express-validator";
 
 // create a budget
-export const createBudgetHandler = async (req: Request , res: Response) => {
-
+export const createBudgetHandler = async (req: Request, res: Response) => {
     try {
-        const errors = validationResult(req)
-        if(!errors.isEmpty())
-        res.status(400).json({errors: errors.array()});
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(400).json({ errors: errors.array() });
+        }
 
+        const { userId, category, amount, spent, month, year } = req.body;
 
-        const {userId , category , amount , spent , month , year} = req.body;
+        // Create the budget and get the newly created budget object
+        const newBudget = { userId, category, amount, spent, month, year }
+        createBudget(newBudget)
 
-        const result = await createBudget({ userId , category , amount , spent , month , year});
-        res.status(201).json({message: "Budget created successfully"})  
-         
+        // Return the newly created budget object in the response
+        res.status(201).json(newBudget);
     } catch (error) {
-
-        console.error("Error creating budget:" , error);
-        res.status(500).json({message: "Internal server Error"})
+        console.error("Error creating budget:", error);
+        res.status(500).json({ message: "Internal server Error" });
     }
-}
+};
 
 // Get all budgets for a user
 export const getUserBudget = async (req: Request , res: Response) => {

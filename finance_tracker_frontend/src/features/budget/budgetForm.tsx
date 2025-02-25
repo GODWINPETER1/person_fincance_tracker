@@ -2,27 +2,38 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store"; // Ensure correct dispatch type
 import { createBudget } from "@/features/budget/budgetSlice";
+import { Budget } from "@/api/budget/budget";
 import { Button } from "@/components/button/button";
 import { Input } from "@/components/input/input";
 
 const BudgetForm = () => {
   const dispatch = useDispatch<AppDispatch>(); // Correct dispatch type
-  const [formData, setFormData] = useState({
+
+  // Define the initial state for the form
+  const initialState: Budget = {
+    id: 1,
+    userId: 1,
     category: "",
-    amount: "",
-    spent: "",
-    month: "",
-    year: "",
-  });
+    amount: 0,
+    spent: 0,
+    month: 1,
+    year: 1,
+  };
+
+  const [formData, setFormData] = useState<Budget>(initialState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === "category" ? value : Number(value), // Convert to number for numeric fields
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Convert to correct types
+    // Create the new budget object
     const newBudget = {
       id: Date.now(), // Temporary ID (backend should override)
       userId: 1, // Replace with actual user ID from auth
@@ -32,11 +43,11 @@ const BudgetForm = () => {
       month: Number(formData.month), // Convert month to number
       year: Number(formData.year), // Convert year to number
     };
+    console.log("Submitting budget:", newBudget); // Debugging
+    dispatch(createBudget(newBudget)); // Dispatch the new budget
 
-    dispatch(createBudget(newBudget)); // Dispatch correct object
-
-    // Reset form
-    setFormData({ category: "", amount: "", spent: "", month: "", year: "" });
+    // Reset the form to its initial state
+    setFormData(initialState);
   };
 
   return (
@@ -62,7 +73,7 @@ const BudgetForm = () => {
         label="spent"
         name="spent"
         type="number"
-        placeholder="spent"
+        placeholder="Spent"
         value={formData.spent}
         onChange={handleChange}
         required
@@ -85,7 +96,9 @@ const BudgetForm = () => {
         onChange={handleChange}
         required
       />
-      <Button type="submit" className="w-full">Add Budget</Button>
+      <Button type="submit" className="w-full">
+        Add Budget
+      </Button>
     </form>
   );
 };

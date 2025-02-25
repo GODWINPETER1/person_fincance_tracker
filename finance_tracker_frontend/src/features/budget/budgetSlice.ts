@@ -53,10 +53,12 @@ const budgetSlice = createSlice({
         })
         .addCase(createBudget.fulfilled , (state , action) => {
             state.loading = false;
+            console.log("Budget created:", action.payload); // Debugging
             state.budgets.push(action.payload);
         })
         .addCase(createBudget.rejected , (state , action) => {
             state.loading = false;
+            console.error("Error creating budget:", action.error); // Debugging
             state.error = action.error.message || "failed to create budget"
         })
 

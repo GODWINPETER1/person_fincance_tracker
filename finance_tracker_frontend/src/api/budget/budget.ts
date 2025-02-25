@@ -21,20 +21,25 @@ export const getAllTheBudget = async () => {
             Authorization: `Bearer ${token}`
         }
     })
+    console.log(response.data)
 
     return response.data;
 };
 
 export const addBudget = async (budget: Budget) => {
-    const token = localStorage.getItem("token")
-    const response = await axios.post(`${BUDGET_API_BASE_URL}/budgets`, budget , {
-
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-
-    return response.data;
+    const token = localStorage.getItem("token");
+    try {
+        const response = await axios.post(`${BUDGET_API_BASE_URL}/budgets`, budget, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        console.log("Budget added successfully:", response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error adding budget:", error);
+        throw error; // Re-throw the error to handle it in the component
+    }
 };
 
 export const updateBudget = async (id: number , budget: Partial<Budget> ) => {
